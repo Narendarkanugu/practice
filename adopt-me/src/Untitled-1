@@ -31,3 +31,19 @@
             {breeds.map(breedString => <option key={breedString} value={breedString}>{breedString}</option>)}
             </select>
         </label>
+
+
+
+
+
+
+
+
+
+const Details = props => {
+  return (
+    <pre>
+      <code>{JSON.stringify(props, null, 4)}</code>
+    </pre>
+  );
+};
