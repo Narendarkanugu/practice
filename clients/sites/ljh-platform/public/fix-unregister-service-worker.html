@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cache Fix | LJ Hooker Platform</title>
+  </head>
+  <body>
+    <script>
+      if ("serviceWorker" in navigator) {
+        console.log("unregistering service worker");
+        navigator.serviceWorker
+          .getRegistrations()
+          .then(registrations => {
+            for (let registration of registrations) {
+              registration.unregister();
+            }
+            console.log("redirecting back to platform");
+            window.location.href = "/";
+          })
+          .catch(err => {
+            window.alert("error: " + err);
+          });
+      } else {
+        console.log("no service worker");
+        console.log("redirecting back to platform");
+        window.location.href = "/";
+      }
+    </script>
+    <div>
+      <style>
+        div {
+          left: 0;
+          line-height: 200px;
+          margin-top: -100px;
+          position: absolute;
+          text-align: center;
+          top: 30%;
+          width: 100%;
+        }
+      </style>
+      LJ Hooker Platform updated, follow this
+      <a href="/">link</a> if you are not redirected automatically.
+    </div>
+  </body>
+</html>

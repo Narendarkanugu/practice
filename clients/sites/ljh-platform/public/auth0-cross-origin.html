@@ -1,0 +1,12 @@
+<head>
+  <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+  <script src="auth-common.js"></script>
+  <script type="text/javascript">
+    var env = getEnvVars()
+    var auth0 = new auth0.WebAuth({
+      clientID: env.auth0ClientId,
+      domain: env.auth0Domain
+    });
+    auth0.crossOriginVerification();
+  </script>
+</head>

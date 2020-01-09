@@ -1,0 +1,28 @@
+{
+  "name": "clients",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "workspaces": [
+    "sites/*",
+    "modules/*"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "lerna": "^3.16.4"
+  },
+  "scripts": {
+    "start:react": "lerna run start --scope @clients-modules/react",
+    "start:ljh-admin": "yarn run generate-version:ljh-admin && yarn run start:react --scope @clients-sites/ljh-admin --parallel",
+    "start:ljh-platform": "yarn run generate-version:ljh-platform && yarn run start:react --scope @clients-sites/ljh-platform --parallel",
+    "start": "lerna run start --parallel",
+    "build:react": "lerna run build --scope @clients-modules/react",
+    "build:ljh-admin": "yarn run generate-version:ljh-admin && yarn run build:react --scope @clients-sites/ljh-admin --stream",
+    "build:ljh-platform": "yarn run generate-version:ljh-platform && yarn run build:react --scope @clients-sites/ljh-platform --stream",
+    "build": "lerna run build --scope @clients-sites/ljh-* --stream",
+    "generate-version:ljh-admin": "LJH_CLIENT_NAME='ljh-admin' ./script/update-version-in-env",
+    "generate-version:ljh-platform": "LJH_CLIENT_NAME='ljh-platform' ./script/update-version-in-env"
+  },
+  "dependencies": {}
+}

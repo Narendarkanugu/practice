@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Calculate version
+GIT_BRANCH=${BUILDKITE_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
+GIT_TAG_VERSION=$(git describe --abbrev=0 --always --match "version*")
+GIT_TAG_VERSION_SLUG=$(echo ${GIT_TAG_VERSION} | sed -e 's/^[^0-9]*//' -e 's/-/\./' -e 's/-.*$//')
+VERSION_MAJOR=${GIT_TAG_VERSION_SLUG}
+
+if [ "${GIT_BRANCH}" == "develop" ]; then
+    VERSION_MINOR=$(git rev-list ${GIT_TAG_VERSION}..HEAD --count)
+    VERSION_PATCH="0"
+    VERSION_MINOR_COMMIT=$(git rev-parse --short HEAD)
+
+    export LJH_VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${VERSION_MINOR_COMMIT}"
+
+else
+    GIT_COMMIT_DEVELOP=$(git merge-base origin/develop HEAD)
+    VERSION_MINOR=$(git rev-list ${GIT_TAG_VERSION}..${GIT_COMMIT_DEVELOP} --count)
+    VERSION_MINOR_COMMIT=$(git rev-parse --short ${GIT_COMMIT_DEVELOP})
+    VERSION_PATCH=$(git rev-list ${GIT_COMMIT_DEVELOP}..HEAD --count)
+    VERSION_PATCH_COMMIT=$(git rev-parse --short HEAD)
+
+    if [ "${GIT_BRANCH}" == "master" ] || [[ "${GIT_BRANCH}" == release* ]]; then
+        export LJH_VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${VERSION_PATCH_COMMIT}"
+
+    else
+        GIT_BRANCH_SLUG=$(echo ${GIT_BRANCH} | sed -E -e 's/^feature[-\/]?//' -e 's/[^0-9a-zA-Z]/-/g' -e 's/-+/-/g')
+
+        export LJH_VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${GIT_BRANCH_SLUG}-${VERSION_PATCH}-${VERSION_PATCH_COMMIT}"
+    fi
+fi
+
+# Calculate build
+if [ -z "${BUILDKITE:-}" ]; then
+    export LJH_BUILD="$(date "+%s").build-$(whoami | sed -e 's/[^0-9a-z]/-/g')"
+else
+    export LJH_BUILD="$(date "+%s").build-${BUILDKITE_BUILD_NUMBER:-???}-${BUILDKITE_RETRY_COUNT:-0}"
+fi

@@ -1,0 +1,21 @@
+const {
+  REACT_APP_AUTH0_CLIENT_ID,
+  REACT_APP_AUTH0_DOMAIN,
+  REACT_APP_REDIRECT_URI,
+  REACT_APP_BASE_URL,
+  REACT_APP_APPSYNC_URL,
+  REACT_APP_BASE_API_GATEWAY,
+  REACT_APP_LJH_VERSION
+} = process.env;
+
+const config = {
+  auth0ClientId: REACT_APP_AUTH0_CLIENT_ID,
+  auth0Domain: REACT_APP_AUTH0_DOMAIN,
+  redirectUri: REACT_APP_REDIRECT_URI,
+  baseUrl: REACT_APP_BASE_URL,
+  appsyncUrl: REACT_APP_APPSYNC_URL,
+  baseApiGateway: REACT_APP_BASE_API_GATEWAY,
+  version: REACT_APP_LJH_VERSION
+};
+
+export default config;

@@ -1,0 +1,69 @@
+#!/bin/bash
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+export BREW_CMD="brew"
+export BREW_OPTS=""
+export PRETTIER_CMD="${ROOT_DIR}//node_modules/prettier/bin-prettier.js"
+
+echo "Client Name is: ${LJH_CLIENT_NAME}"
+# Setup AWS
+# - for now we do everything in Sydney region (ap-southeast-2)
+export LJH_AWS_REGION="ap-southeast-2"
+
+# Calculate project name
+# - determine name of git repository
+# - strip URL components
+# - strip .git extension
+# - add client name as postfix
+export LJH_PROJECT=$(git remote show origin -n | grep "Fetch URL:" | sed -E -e 's#^.*/(.*)$#\1#' -e 's#.git$##')"/sites/${LJH_CLIENT_NAME}"
+
+# Setup npm
+# - we set this to our local tmp directory
+# - this allows multiple buildkite agents to run this in parallel as they have their own checkout directory
+# - sharing the global path causes npm to have issues and fail on one the builds
+export NPM_CACHEDIR="${ROOT_DIR}/tmp/npm-cache"
+export NPM_CMD="npm"
+export NPM_OPTS="--cache=${NPM_CACHEDIR}"
+mkdir -pv "$NPM_CACHEDIR"
+
+function assume_role_cancel() {
+	SAVED_OPTIONS=$(set +o)
+	set +xv
+
+	echo -n ":aws: Cancelling assumed role ... "
+	unset AWS_ACCESS_KEY_ID
+	unset AWS_SECRET_ACCESS_KEY
+	unset AWS_SESSION_TOKEN
+	echo "OK"
+
+	eval "$SAVED_OPTIONS"
+}
+
+function assume_role_serverless() {
+	SAVED_OPTIONS=$(set +o)
+	set +xv
+
+	: LJH_PROJECT="${LJH_PROJECT?${whoami}}"
+	: LJH_AWS_ACCOUNT_ID="${LJH_AWS_ACCOUNT_ID?Aborting, environment variable 'LJH_AWS_ACCOUNT_ID' not set.}"
+
+	ROLE='LjhTech/Deployment/LjhTech-Deployment-AppWebRole'
+	ROLE_ARN="arn:aws:iam::${LJH_AWS_ACCOUNT_ID}:role/${ROLE}"
+
+	echo -n ":aws: Assuming role: ${ROLE_ARN} ... "
+	CREDS=$(aws sts assume-role --role-arn "${ROLE_ARN}" --role-session-name "${LJH_CLIENT_NAME}" --out json)
+	echo "OK"
+
+	echo -n "Setting up environment variable: AWS_ACCESS_KEY_ID ... "
+	export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')
+	echo "OK"
+
+	echo -n "Setting up environment variable: AWS_SECRET_ACCESS_KEY ... "
+	export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')
+	echo "OK"
+
+	echo -n "Setting up environment variable: AWS_SESSION_TOKEN ... "
+	export AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')
+	echo "OK"
+
+	eval "$SAVED_OPTIONS"
+}

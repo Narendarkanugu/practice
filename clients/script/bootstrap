@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common"
+
+SCRIPT_NAME=${LJH_PROJECT}/$(basename "$0")
+
+echo "--- ${SCRIPT_NAME}"
+
+if [ -f "Brewfile" ]; then
+	if [ -z "${BUILDKITE:-}" ]; then
+		echo "- ${SCRIPT_NAME}: Installing brew packages…"
+		set -x
+		${BREW_CMD} bundle ${BREW_OPTS}
+		set +x
+	else
+		echo "- ${SCRIPT_NAME}: Skipping brew packages because we are in a CI environment."
+	fi
+fi
+
+if [ -f "package.json" ]; then
+	echo "- ${SCRIPT_NAME}: Installing node modules…"
+	set -x
+	rm -r node_modules || true
+	make
+	set +e
+	# Skipping exit on failure to bypass ./install.sh: 3: ./install.sh: node-waf: not found
+	yarn
+	# skipping exit on failure to bypas lerna ERR! yarn install --mutex network:42424 --non-interactive exited 127 in 'clients'
+	lerna bootstrap
+	set -e
+	set +x
+fi
+
+echo "+++ ${SCRIPT_NAME}: Done!"

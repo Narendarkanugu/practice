@@ -1,0 +1,101 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common"
+
+SCRIPT_NAME=${LJH_PROJECT}/$(basename "$0")
+
+echo "--- ${SCRIPT_NAME}"
+
+: LJH_AWS_ACCOUNT_ID="${LJH_AWS_ACCOUNT_ID?Aborting, environment variable 'LJH_AWS_ACCOUNT_ID' is not set.}"
+: LJH_INSTANCE="${LJH_INSTANCE?Aborting, environment variable 'LJH_INSTANCE' is not set.}"
+: LJH_ENVIRONMENT="${LJH_ENVIRONMENT?Aborting, environment variable 'LJH_ENVIRONMENT' is not set.}"
+
+# Adding instance id to the s3 folder name (test02 is the new dev environment)
+set -x
+LJH_INSTANCE_ID=""
+
+if [ ${LJH_INSTANCE} == "test02" ]; then
+	LJH_INSTANCE_ID="02"
+fi
+set +x
+
+set -x
+WEBSITE_URL_POSTFIX="-${LJH_ENVIRONMENT}${LJH_INSTANCE_ID}"
+
+if [ ${LJH_ENVIRONMENT} == "prod" ]; then
+	WEBSITE_URL_POSTFIX=""
+fi
+set +x
+
+BUILD_DIR="sites/${LJH_CLIENT_NAME}/build"
+
+echo "--- ${SCRIPT_NAME}: Setup"
+set -x
+if [ -z "${BUILDKITE:-}" ]; then
+	echo "skipping clean build directory due to local deploy ..."
+else
+	rm -rf "${BUILD_DIR}"
+fi
+set +x
+
+echo "--- ${SCRIPT_NAME}: :buildkite: Downloading artifacts"
+set -x
+if [ -z "${BUILDKITE:-}" ]; then
+	echo "skipping artifact download due to local deploy ..."
+else
+	buildkite-agent artifact download "${BUILD_DIR}/*" .
+	buildkite-agent artifact download "${BUILD_DIR}/static/**/*" .
+fi
+set +x
+
+echo "--- ${SCRIPT_NAME}: :s3: Deploying to s3://ljh-platform-acc${LJH_AWS_ACCOUNT_ID}-websites"
+if [ -z "${BUILDKITE:-}" ]; then
+	echo "skipping assume role due to local deploy ..."
+else
+	assume_role_serverless
+fi 
+set -x
+
+# Setting object cache max-age= 1 (year) for all "static/" content and 0 for all other objects.
+
+# Syncing all 'build/special' using --delete option to remove stale files
+# aws s3 sync \
+# 	${BUILD_DIR}/special/ \
+# 	"s3://ljh-platform-acc${LJH_AWS_ACCOUNT_ID}-websites/com.ljhooker.platform${WEBSITE_URL_POSTFIX}/special/" \
+# 	--delete \
+# 	--metadata-directive REPLACE \
+# 	--cache-control max-age=0,no-cache,no-store,must-revalidate \
+# 	--add-header "Clear-Site-Data:storage cache"
+
+# Syncing 'build/static' contents first so that we have latest 'css' & 'js' files available (Note: --delete is not used as we want to keep stale js/css files available till next step execution has finished)
+aws s3 sync \
+	${BUILD_DIR}/static/ \
+	"s3://ljh-platform-acc${LJH_AWS_ACCOUNT_ID}-websites/com.ljhooker.platform${WEBSITE_URL_POSTFIX}/static/" \
+	--cache-control max-age=31557600
+
+# Syncing all 'build/' files excluding 'static' and also using --delete option to remove stale files
+aws s3 sync \
+	${BUILD_DIR}/ \
+	"s3://ljh-platform-acc${LJH_AWS_ACCOUNT_ID}-websites/com.ljhooker.platform${WEBSITE_URL_POSTFIX}/" \
+	--delete \
+	--metadata-directive REPLACE \
+	--cache-control max-age=0,no-cache,no-store,must-revalidate \
+	--exclude "static*" \
+ 	--exclude "special*"
+
+# Syncing again to remove old files under 'build/static' (memory efficient, otherwise we were storing unwanted hashed versions of js /css files)
+# DISABLED on 2019-04-10 by Manpreet & Harish to try and fix the service worker / app deployment showing a blank page while loading the old version of the site.
+#aws s3 sync ${BUILD_DIR}/static/ "s3://ljh-platform-acc${LJH_AWS_ACCOUNT_ID}-websites/Ljh-AgentWeb-${LJH_ENVIRONMENT_TITLEIZE}-Website/static/" --delete --cache-control max-age=31557600
+set +x
+
+assume_role_cancel
+
+echo "- ${SCRIPT_NAME}: Teardown"
+set -x
+rm -rf "${BUILD_DIR}"
+set +x
+
+echo "+++ ${SCRIPT_NAME}: Done!"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common-version"
+
+: LJH_VERSION="${LJH_VERSION?Aborting, environment variable 'LJH_VERSION' not set.}"
+
+# Remove existing LJH_VERSION entry in env
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' -e '/REACT_APP_LJH_VERSION/d' "${ROOT_DIR}/sites/${LJH_CLIENT_NAME}/.env"
+else
+    sed -i -e '/REACT_APP_LJH_VERSION/d' "${ROOT_DIR}/sites/${LJH_CLIENT_NAME}/.env"
+fi
+
+# Add LJH_VERSION in .env file
+echo -e "REACT_APP_LJH_VERSION=${LJH_VERSION}" >>"${ROOT_DIR}/sites/${LJH_CLIENT_NAME}/.env"

@@ -1,0 +1,42 @@
+[
+  {
+    "icon": "tasks",
+    "name": "Task"
+  },
+  {
+    "icon": "home",
+    "name": "House"
+  },
+  {
+    "icon": "users",
+    "name": "Person"
+  },
+  {
+    "icon": "file-alt",
+    "name": "Document"
+  },
+  {
+    "icon": "heart",
+    "name": "Favourite"
+  },
+  {
+    "icon": "tag",
+    "name": "Price"
+  },
+  {
+    "icon": "check-circle",
+    "name": "Confirmation"
+  },
+  {
+    "icon": "exclamation-circle",
+    "name": "Priority"
+  },
+  {
+    "icon": "key",
+    "name": "Key"
+  },
+  {
+    "icon": "dollar-sign",
+    "name": "Offer"
+  }
+]

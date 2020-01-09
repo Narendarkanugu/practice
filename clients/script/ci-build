@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common"
+
+SCRIPT_NAME=${LJH_PROJECT}/$(basename "$0")
+
+echo "--- ${SCRIPT_NAME}"
+
+DIR_BUILD="sites/${LJH_CLIENT_NAME}/build"
+
+echo "--- ${SCRIPT_NAME}: Setup"
+set -x
+rm -rf "${DIR_BUILD}*"
+
+# Generate .env file by renaming exisitng env file
+if [ -f sites/${LJH_CLIENT_NAME}/.env ]; then
+    rm -v sites/${LJH_CLIENT_NAME}/.env
+fi 
+cp -pv sites/${LJH_CLIENT_NAME}/.env-${LJH_INSTANCE} sites/${LJH_CLIENT_NAME}/.env
+ls sites/${LJH_CLIENT_NAME}
+
+source "${ROOT_DIR}/script/update-version-in-env"
+cat sites/${LJH_CLIENT_NAME}/.env
+set +x
+
+echo "--- ${SCRIPT_NAME}: Building ${ROOT_DIR}"
+set -x
+yarn build:"${LJH_CLIENT_NAME}"
+
+set +x
+
+echo "--- ${SCRIPT_NAME}: :buildkite: Uploading artifacts"
+set -x
+if [ -z "${BUILDKITE:-}" ]; then
+	echo "skipping artifact upload due to local deploy ..."
+else
+    buildkite-agent artifact upload "${DIR_BUILD}/*"
+    buildkite-agent artifact upload "${DIR_BUILD}/static/**/*"
+fi
+set +x
+
+echo "- ${SCRIPT_NAME}: Teardown"
+set -x
+rm -rf "${DIR_BUILD}"
+rm sites/${LJH_CLIENT_NAME}/.env
+set +x
+
+echo "+++ ${SCRIPT_NAME}: Done!"

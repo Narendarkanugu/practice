@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common-version"
+
+: LJH_VERSION="${LJH_VERSION?Aborting, environment variable 'LJH_VERSION' not set.}"
+
+echo ${LJH_VERSION}

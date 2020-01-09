@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+source "${ROOT_DIR}/script/common-version"
+
+: LJH_BUILD="${LJH_BUILD?Aborting, environment variable 'LJH_BUILD' not set.}"
+
+echo ${LJH_BUILD}

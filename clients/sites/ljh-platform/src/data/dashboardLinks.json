@@ -1,0 +1,455 @@
+{
+  "sections": [
+    {
+      "name": "Agent Support",
+      "officeTypes": ["corporate"],
+      "items": [
+        {
+          "id": "agency-agreement",
+          "name": "Agency Agreement request",
+          "url": "https://www.123formbuilder.com/form-4882323",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "New Listing Advice",
+          "url": "https://www.123formbuilder.com/form-4893935",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "Price change notification",
+          "url": "https://www.123formbuilder.com/form-4893578",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "New Sale",
+          "url": "https://www.123formbuilder.com/form-4893581",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "Trust Deposit Advice",
+          "url": "https://www.123formbuilder.com/form-4893238",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "Withdraw Listing Notification",
+          "url": "https://www.123formbuilder.com/form-4893583",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "agency-agreement",
+          "name": "Email Agent Support",
+          "url": "mailto:agentsupport@ljhooker.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Digital Solutions",
+      "officeTypes": ["corporate", "franchise", "operations"],
+      "items": [
+        {
+          "hideForOnboarding": true,
+          "id": "agent-spotlight",
+          "name": "Agent Spotlight",
+          "url": "https://premiumagent.ljhooker.com.au/Home/admin",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "property-spotlight",
+          "name": "Property Spotlight",
+          "url": "https://nextgen.ljhooker.com/spotlight",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "lj-hooker-boost",
+          "name": "LJ Hooker Boost",
+          "url": "https://boost.ljhooker.com",
+          "roles": ["franchise-owner", "franchise-services", "administration", "salesperson"]
+        },
+        {
+          "id": "digital-microsite",
+          "name": "Digital Microsite",
+          "url": "https://digital.ljhooker.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "website-admin",
+          "name": "Website Admin",
+          "url": "https://ljhooker.auth0.com/authorize?response_type=code&scope=openid%20profile&client_id=uY4rugrjTwuhF36QKcy2tBZ2T0bDra71&redirect_uri=https://www.ljhooker.com.au/auth0-login.ashx&connection=Username-Password-Authentication",
+          "roles": ["franchise-owner", "franchise-services", "administration"],
+          "officeTypes": ["franchise", "operations"]
+        }
+      ]
+    },
+    {
+      "name": "Admin Tools",
+      "officeTypes": ["corporate", "franchise", "operations"],
+      "items": [
+        {
+          "id": "franchise-returns",
+          "name": "Franchise Returns",
+          "url": "http://nextgen.ljhooker.com/fr",
+          "roles": ["franchise-owner", "franchise-services", "administration"],
+          "officeTypes": ["franchise", "operations"]
+        },
+        {
+          "id": "office-admin",
+          "name": "Office Admin",
+          "url": "http://officeadmin.ljhooker.com",
+          "roles": ["franchise-owner", "franchise-services", "administration"],
+          "officeTypes": ["franchise", "operations"]
+        },
+        {
+          "id": "prelist-presentation",
+          "name": "Prelist Presentation",
+          "url": "https://dashboard.ljhooker.com/prelist",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["franchise", "operations"]
+        },
+        {
+          "id": "assist",
+          "name": "LJ Hooker Assist",
+          "url": "https://ljhooker.auth0.com/authorize?connection=Username-Password-Authentication&client_id=UfTN7DK9gNYcXqOuT2Uew8mwbDLzz4Zz&response_type=code&redirect_uri=http://assist.ljhooker.com.au/REALoginNewPortalRoute&scope=openid%20personsCode",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "qantas",
+          "name": "Qantas",
+          "url": "https://ljhooker.auth0.com/authorize?connection=Username-Password-Authentication&client_id=M8Klqgj4xaz2FvrRQfPLTjaZ0j4jZu9t&response_type=code&redirect_uri=https://qantaspoints.ljhooker.com/process-login&scope=openid%20email",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "buyer-referral",
+          "name": "Buyer Referral",
+          "url": "https://www.123formbuilder.com/form-3812724/Buyer-Referral",
+          "roles": ["franchise-owner", "franchise-services", "administration", "salesperson"]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "seller-referral",
+          "name": "Seller Referral",
+          "url": "https://www.123formbuilder.com/form-3812806/Seller-Referral",
+          "roles": ["franchise-owner", "franchise-services", "administration", "salesperson"]
+        }
+      ]
+    },
+    {
+      "name": "Marketing",
+      "officeTypes": ["corporate", "franchise", "operations"],
+      "items": [
+        {
+          "id": "realhub",
+          "name": "Marketing Centre - Realhub",
+          "url": "https://www.realhubapp.com/agency/users/token_login",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "promote",
+          "name": "Promote",
+          "url": "http://eezeeorder.com.au/ljhooker",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["franchise", "operations"]
+        },
+        {
+          "hideForOnboarding": true,
+          "id": "promote-v2",
+          "name": "PromoteV2",
+          "url": "",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["franchise", "operations"]
+        }
+      ]
+    },
+    {
+      "name": "Staff Management",
+      "officeTypes": ["franchise", "operations"],
+      "items": [
+        {
+          "id": "new-staff-form",
+          "name": "New Staff Form",
+          "url": "http://www.123formbuilder.com/form-3690666/New-Staff-Form",
+          "roles": ["franchise-owner", "franchise-services", "administration"]
+        },
+        {
+          "id": "termination-form",
+          "name": "Termination Form",
+          "url": "http://www.123formbuilder.com/form-3690628/Staff-Termination-Form",
+          "roles": ["franchise-owner", "franchise-services", "administration"]
+        },
+        {
+          "id": "email-request-form",
+          "name": "Email Request Form",
+          "url": "http://www.123formbuilder.com/form-3690676/Email-Request-Form",
+          "roles": ["franchise-owner", "franchise-services", "administration"]
+        },
+        {
+          "id": "staff-update-form",
+          "name": "Staff Update Form",
+          "url": "http://www.123formbuilder.com/form-3690598/Staff-Update-Form",
+          "roles": ["franchise-owner", "franchise-services", "administration"]
+        },
+        {
+          "id": "password-reset-tool",
+          "name": "Password Reset Tool",
+          "url": "https://passwd-recovery.ljhooker.com",
+          "roles": ["franchise-owner", "franchise-services", "administration"]
+        }
+      ]
+    },
+    {
+      "name": "Training",
+      "officeTypes": ["corporate", "franchise", "operations"],
+      "items": [
+        {
+          "id": "real-edge",
+          "name": "Real Edge",
+          "url": "https://ljhooker.auth0.com/samlp/DibkLTG715iRufsyC4R5273D5dNp37Wy?connection=Username-Password-Authentication",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "training-events",
+          "name": "Training & Events",
+          "url": "https://training.ljhooker.com.au",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "officeTypes": ["corporate", "franchise", "operations"],
+      "items": [
+        {
+          "id": "workplace",
+          "name": "Workplace by Facebook",
+          "url": "https://ljhooker.facebook.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "support",
+          "name": "Support Centre",
+          "url": "https://support.ljhooker.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "team-viewer",
+          "name": "Team Viewer",
+          "url": "https://www.teamviewer.com/en/download",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ]
+        },
+        {
+          "id": "move",
+          "name": "MOVE",
+          "url": "https://move2.ljhooker.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        },
+        {
+          "id": "core-logic",
+          "name": "Core Logic",
+          "url": "https://access-api.corelogic.asia/access/loginPage.html",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        },
+        {
+          "id": "active-pipe",
+          "name": "Active Pipe",
+          "url": "https://live.activepipe.com/login",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        },
+        {
+          "id": "homepass",
+          "name": "Homepass",
+          "url": "https://app.homepass.com/login",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        },
+        {
+          "id": "team-viewer",
+          "name": "EasyPayroll",
+          "url": "https://easypayroll.yourpayroll.com.au",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        },
+        {
+          "id": "gmail",
+          "name": "Gmail",
+          "url": "https://accounts.google.com",
+          "roles": [
+            "franchise-owner",
+            "franchise-services",
+            "administration",
+            "salesperson",
+            "property-manager"
+          ],
+          "officeTypes": ["corporate"]
+        }
+      ]
+    }
+  ]
+}

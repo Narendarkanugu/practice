@@ -1,0 +1,49 @@
+{
+  "name": "@clients-modules/react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@material-ui/core": "^4.3.0"
+  },
+  "dependencies": {
+    "@clients-modules/js": "^1.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.21",
+    "@fortawesome/free-solid-svg-icons": "^5.10.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@material-ui/icons": "^4.2.1",
+    "apollo-link": "1.2.12",
+    "apollo-link-context": "1.0.18",
+    "apollo-link-http": "1.5.15",
+    "auth0-js": "^9.11.2",
+    "auth0-lock": "^11.17.1",
+    "aws-appsync": "^1.8.1",
+    "classnames": "^2.2.6",
+    "graphql-tag": "^2.10.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt": "^0.2.0",
+    "keymirror": "^0.1.1",
+    "lodash": "^4.17.15",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-apollo": "2.5.3",
+    "react-apollo-hooks": "0.4.5",
+    "react-router-dom": "^5.0.1",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "build": "npx babel src -d lib",
+    "start": "npx babel src -d lib --watch"
+  }
+}
